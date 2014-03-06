@@ -31,7 +31,13 @@
         </ul>
       </section>
       <ul class="col-md-3 scrollable-menu" role="menu">
-        <li>Overview</li>
+        <li>
+          Overview
+          <ul ng-repeat="(name, t) in traits">
+            <li>{{name}}</li>
+          </ul>
+        </li>
+
         <li>Routes</li>
       </ul>
     </div>

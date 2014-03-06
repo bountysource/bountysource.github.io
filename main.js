@@ -20,10 +20,10 @@ require(
     'underscore',
     'domReady!'
   ],
-  function (angular, jsyml, _) {
-    angular.module('ramlview', []);
+  function (ng, jsyml, _) {
+    ng.module('ramlview', []);
 
-    angular.module('ramlview').
+    ng.module('ramlview').
       controller('RamlViewCtrl', function($scope, $http) {
         $http.get('bountysource.raml').then(function (response) {
           $scope.api = jsyml.load(response.data);
@@ -33,9 +33,10 @@ require(
               snowball[flake] = $scope.api[flake];
               return snowball;
             }, {});
+          $scope.traits = _.extend.apply({}, $scope.api.traits);
         });
       });
 
-    angular.bootstrap(document, ['ramlview']);
+    ng.bootstrap(document, ['ramlview']);
   }
 );
