@@ -5,3 +5,17 @@
 dd {
   padding-left: 1em;
 }
+
+.params {
+  padding-top: 0.5em;
+}
+
+.type {
+  display: inline-block;
+  margin-left: 0.5em;
+}
+
+h4, dl {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}

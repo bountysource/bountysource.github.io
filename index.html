@@ -9,36 +9,66 @@
     <title>Bountysource API documentation</title>
   </head>
   <body ng-controller="RamlViewCtrl" ng-cloak class="container">
-    <h3 class="row">{{api.title}} API Docs</h3>
+    <h3 class="row">{{api.title}} API Docs {{api.version}}</h3>
 
     <div class="row">
-      <section class="col-md-9" role="main">
-        <h4>Routes</h4>
-        <ul ng-repeat="(name, r) in routes">
-          <li>
-            <div class="name">{{name}}</div>
-            <p ng-if="r.description">{{r.description}}</p>
+      <div class="col-md-9" role="main">
+        <section class="row" id="overview">
+          <h4>Overview</h4>
 
-            <dl ng-if="r.get && r.get.queryParameters">
-              <div>Parameters:</div>
+          <p>This API allows you to interact with bounties for issues on open source
+          projects as well as open source fundraisers.</p>
 
-              <div ng-repeat="(name, p) in r.get.queryParameters">
-                <dt>{{name}}</dt>
-                <dd>{{p.description}}</dd>
-              </div>
-            </dl>
-          </li>
-        </ul>
-      </section>
+          <div ng-repeat="(name, t) in traits">
+            <h5 id="{{name}}">{{name}}</h5>
+          </div>
+        </section>
+
+        <section class="row" id="contributing">
+          <h4>Contributing</h4>
+          <p>This documentation is generated from a <a href="">RAML</a> definition.
+          If you would like to propose an API change, submit a pull request to the
+          Bountysource <a href="">API repository</a>.
+        </section>
+
+        <section class="row" id="routes">
+          <h4>Routes</h4>
+          <ul ng-repeat="(name, r) in routes">
+            <li>
+              <div class="name">{{name}}</div>
+              <p ng-if="r.description">{{r.description}}</p>
+
+              <dl ng-if="r.get && r.get.queryParameters">
+                <div>Parameters:</div>
+
+                <div class="params" ng-repeat="(name, p) in r.get.queryParameters">
+                  <dt>{{name}}<span class="type" ng-if="p.type">({{p.type}})</span></dt>
+                  <dd>
+                    {{p.description}}
+                    <ul>
+                      <li ng-if="p.defaults">Default: {{p.example}}</li>
+                      <li ng-if="p.example">Example: {{p.example}}</li>
+                      <li ng-if="p.minimum">Minimum: {{p.minimum}}</li>
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+            </li>
+          </ul>
+        </section>
+      </div>
+
       <ul class="col-md-3 scrollable-menu" role="menu">
         <li>
-          Overview
+          <a href="#overview">Overview</a></li>
           <ul ng-repeat="(name, t) in traits">
             <li>{{name}}</li>
           </ul>
         </li>
 
-        <li>Routes</li>
+        <li><a href="#contributing">Contributing</a></li>
+
+        <li><a href="#routes">Routes</a></li>
       </ul>
     </div>
 
