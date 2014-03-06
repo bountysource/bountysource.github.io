@@ -32,7 +32,7 @@ require(
             function (snowball, flake) {
               snowball[flake] = $scope.api[flake];
               return snowball;
-            }, {})
+            }, {});
         });
       });
 

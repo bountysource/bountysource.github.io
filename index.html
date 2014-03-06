@@ -8,8 +8,33 @@
 
     <title>Bountysource API documentation</title>
   </head>
-  <body ng-controller="RamlViewCtrl" ng-cloak>
-    <h3>{{api.title}} API Docs</h3>
+  <body ng-controller="RamlViewCtrl" ng-cloak class="container">
+    <h3 class="row">{{api.title}} API Docs</h3>
+
+    <div class="row">
+      <section class="col-md-9" role="main">
+        <h4>Routes</h4>
+        <ul ng-repeat="(name, r) in routes">
+          <li>
+            <div class="name">{{name}}</div>
+            <p ng-if="r.description">{{r.description}}</p>
+
+            <dl ng-if="r.get && r.get.queryParameters">
+              <div>Parameters:</div>
+
+              <div ng-repeat="(name, p) in r.get.queryParameters">
+                <dt>{{name}}</dt>
+                <dd>{{p.description}}</dd>
+              </div>
+            </dl>
+          </li>
+        </ul>
+      </section>
+      <ul class="col-md-3 scrollable-menu" role="menu">
+        <li>Overview</li>
+        <li>Routes</li>
+      </ul>
+    </div>
 
     <script data-main="main" src="components/requirejs/require.js"></script>
   </body>
