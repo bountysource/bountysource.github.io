@@ -19,3 +19,19 @@ h4, dl {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+
+p.description {
+  background-color: #eee;
+  font-style: italic;
+  padding: 0.5em;
+}
+
+h4.name {
+  text-decoration: underline;
+}
+
+section {
+  border-top: 1px solid #ccc;
+  margin: 2em 0;
+  padding-top: 1em;
+}
