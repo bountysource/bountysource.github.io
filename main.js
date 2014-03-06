@@ -27,12 +27,12 @@ require(
       controller('RamlViewCtrl', function($scope, $http) {
         $http.get('bountysource.raml').then(function (response) {
           $scope.api = jsyml.load(response.data);
-          $scope.routes = _.reduce(
-            _.filter(_.keys($scope.api), function (k) { return k[0] === '/'; }),
-            function (snowball, flake) {
-              snowball[flake] = $scope.api[flake];
-              return snowball;
-            }, {});
+          $scope.routes = _.pick(
+            $scope.api,
+            _.filter(
+              _.keys($scope.api),
+              function (k) { return k[0] === '/'; }
+            ));
           $scope.traits = _.extend.apply({}, $scope.api.traits);
         });
       });
