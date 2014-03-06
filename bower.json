@@ -6,6 +6,7 @@
     "requirejs-plugins": "latest",
     "requirejs-domready": "latest",
     "angular": "latest",
+    "angular-encode-uri": "latest",
     "js-yaml": "latest",
     "bootstrap": "latest",
     "underscore": "latest"

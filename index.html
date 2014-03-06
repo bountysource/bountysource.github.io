@@ -35,7 +35,7 @@
           <h3>Routes</h3>
           <ul ng-repeat="(name, r) in routes">
             <li>
-              <h3 class="name">{{name}}</h3>
+              <h3 class="name" id="{{name|encodeUri}}">{{name}}</h3>
               <p class="description" ng-if="r.description">{{r.description}}</p>
               <span class="includes-traits" ng-if="r.is">
               [
@@ -79,7 +79,7 @@
         <li>
           <a href="#routes">Routes</a>
           <ul ng-repeat="(name, r) in routes">
-            <li><div class="name">{{name}}</div></li>
+            <li><a class="name" href="#{{name|encodeUri}}">{{name}}</a></li>
           </ul>
         </li>
       </ul>

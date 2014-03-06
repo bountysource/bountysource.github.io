@@ -35,3 +35,7 @@ section {
   margin: 2em 0;
   padding-top: 1em;
 }
+
+*[role=menu] {
+  list-style-type: none;
+}

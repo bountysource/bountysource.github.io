@@ -1,6 +1,7 @@
 requirejs.config({
   shim: {
     'angular': { exports: 'angular' },
+    'angularEncodeUri': { deps: ['angular'] },
     'jsyaml': { exports: 'jsyaml' },
     'underscore': { exports: '_' }
   },
@@ -8,6 +9,7 @@ requirejs.config({
     propertyParser: 'components/requirejs-plugins/src/propertyParser',
     domReady: 'components/requirejs-domready/domReady',
     angular: 'components/angular/angular.min',
+    angularEncodeUri: 'components/angular-encode-uri/dist/angular-encode-uri.min',
     jsyml: 'components/js-yaml/js-yaml',
     underscore: 'components/underscore/underscore'
   }
@@ -18,10 +20,11 @@ require(
     'angular',
     'jsyml',
     'underscore',
+    'angularEncodeUri',
     'domReady!'
   ],
   function (ng, jsyml, _) {
-    ng.module('ramlview', []);
+    ng.module('ramlview', ['rt.encodeuri']);
 
     ng.module('ramlview').
       controller('RamlViewCtrl', function($scope, $http) {
