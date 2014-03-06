@@ -68,7 +68,12 @@
 
         <li><a href="#contributing">Contributing</a></li>
 
-        <li><a href="#routes">Routes</a></li>
+        <li>
+          <a href="#routes">Routes</a>
+          <ul ng-repeat="(name, r) in routes">
+            <li><div class="name">{{name}}</div></li>
+          </ul>
+        </li>
       </ul>
     </div>
 
