@@ -36,6 +36,10 @@ section {
   padding-top: 1em;
 }
 
-*[role=menu] {
+ul[role=menu], ul[role=menu] ul {
   list-style-type: none;
+}
+
+ul[role=menu] > li {
+  margin: 0.25em 0;
 }
