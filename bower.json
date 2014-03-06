@@ -6,6 +6,7 @@
     "requirejs-plugins": "latest",
     "requirejs-domready": "latest",
     "angular": "latest",
+    "js-yaml": "latest",
     "bootstrap": "latest"
   }
 }

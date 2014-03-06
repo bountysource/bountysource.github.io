@@ -1,0 +1,434 @@
+#%RAML 0.8
+title: Bountysource
+baseUri: https://api.bountysource.com
+protocols:  [ HTTPS ]
+mediaType: application/vnd.bountysource+json; version=2
+version: v2.0
+
+traits:
+  - paginated:
+      queryParameters:
+        per_page:
+          displayName: Per Page
+          description: How many results per page
+          type: integer
+          example: 20
+          minimum: 1
+          maximum: 100
+          default: 30
+        per_page:
+          displayName: Page
+          description: (1-based) page number
+          type: integer
+          example: 2
+          minimum: 1
+          default: 1
+      responses:
+        200:
+          headers:
+            Link:
+              description: |
+                First, last, previous, next header links when they exist
+              type: string
+              required: false
+              example: '</foo>; rel="next", </bar>; rel="last", </baz>; rel="first", </bat>; rel="previous"'
+          body:
+  - versioned:
+      headers:
+        Accept:
+          description: |
+            This API uses a Bountysource vendor-specific superset of JSON.
+            Supply the version as a mime type parameter.
+          type: string
+          required: true
+          enum: [
+            "application/vnd.bountysource+json; version=1",
+            "application/vnd.bountysource+json; version=2"
+          ]
+          default: application/vnd.bountysource+json; version=1
+          example: application/vnd.bountysource+json; version=2
+
+/trackers:
+  is: [ paginated, versioned ]
+  description: List of issue trackers
+  get:
+    queryParams:
+      type:
+        displayName: Type
+        description: Filter by issue tracker type
+        enum: [
+          'github',
+          'bitbucket',
+          'bugzilla',
+          'google',
+          'jira',
+          'lanchpad',
+          'pivotal',
+          'sourceforge',
+          'trac'
+        ]
+        type: string
+        example: github
+
+      featured:
+        displayName: Featured
+        description: Filter by featured. When ommitted, both featured and undfeatured trackers are returned.
+        type: boolean
+        example: true
+
+      bounties:
+        displayName: Has Active Bounties
+        description: Filter by issues trackers with active bounties. When ommitted, all issue trackers are returned.
+        type: boolean
+        example: true
+
+      order:
+        displayName: Order
+        description: Order trackers by value
+        type: string
+        enum: [
+          'bounties',
+          'open_issues',
+          'closed_issues'
+        ]
+        example: +bounties
+
+
+  /{id}:
+    is: [ versioned ]
+    description: Project issue tracker (on bugzilla, github, etc)
+    get:
+      responses:
+        200:
+          body:
+            example: |
+              {
+                "id": 123,
+                "display_name": "Amazing Project",
+                "slug": "123-amazing-project",
+
+                "homepage": "http://organization.net/amazing_project",
+                "repo_url": "http://github.com/organization/amazing_project",
+                "synced_at": "2014-02-11T18:28:06Z",
+                "open_issues": 23,
+                "closed_issues": 98,
+
+                "image_url_small": "http://foo.com/amazing_logo_small.png",
+                "image_url_medium": "http://foo.com/amazing_logo_medium.png",
+                "image_url_large": "http://foo.com/amazing_logo_large.png",
+
+                "remote_url": "https://bugs.organization.net/amazing_project",
+                "remote_name": "organization/amazing_project",
+
+                "featured": false,
+                "languages": [ "Javascript" ]
+              }
+
+/issues:
+  is: [ paginated, versioned ]
+  get:
+    queryParameters:
+      tracker_id:
+        displayName: Tracker ID
+        description: Issues for this tracker id
+        type: integer
+        example: 123
+      tracker_type:
+        displayName: Tracker Type
+        description: Issues for this tracker type
+        type: string
+        enum: [
+          'github',
+          'bitbucket',
+          'bugzilla',
+          'google',
+          'jira',
+          'lanchpad',
+          'pivotal',
+          'sourceforge',
+          'trac'
+        ]
+        example: github
+      can_add_bounty:
+        displayName: Opened/Closed
+        description: Filter issues that can('t) accept new bounties (blank means both)
+        type: boolean
+      include_body_html:
+        displayName: Include body
+        description: Include the (often large) body_html property
+        type: boolean
+        default: false
+      featured:
+        displayName: Featured
+        description: 'Filter issues by featured value. When this param is ommitted, both featured an non-featured issues are returned'
+        type: boolean
+        default: false
+      order:
+        displayName: Order
+        description: Order issues by value. Specify order by prepending value with '+' or '-'.
+        type: string
+        enum: [
+          'team_rank',
+          'linked_account_rank',
+          'rank',
+          'bounty',
+          'remote_created_at',
+          'comments',
+          'participants',
+          'thumbs',
+          'votes',
+          'created_at',
+          'updated_at'
+        ]
+        example: '+bounty'
+
+
+  /{id}:
+    is: [ versioned ]
+    description: A particular issue in a project that can have bounties
+    get:
+      queryParameters:
+        include_bounty_claims:
+          description: Embed array of claims in each issue
+          type: boolean
+          default: false
+        include_body_html:
+          description: Include the (often large) body_html property
+          type: boolean
+          default: true
+        include_tracker:
+          description: Embed the tracker object for this issue
+          type: boolean
+          default: false
+        include_author:
+          description: Include Linked Account (if any) that created this issue
+          type: boolean
+          default: false
+      responses:
+        200:
+          body:
+            example: |
+              {
+                "id": 1,
+                "type": "Bugzilla::Issue",
+                "slug": "1-make-project-more-amazing",
+                "title": "Make project more amazing",
+                "tracker_id": 123,
+
+                "body_html": "<p>It needs something, you know.</p>",
+                "created_at": "2013-07-24T14:07:00Z",
+                "featured" false,
+                "can_add_bounty": true,
+                "paid_out": false,
+                "priority": "P2",
+                "severity": "Blocker",
+
+                "bounty_total": 1000.0,
+                "has_active_solution": true,
+
+                "rank" : 42
+
+                "remote_created_at": "2012-02-24T14:07:20Z",
+                "remote_updated_at": "2014-03-01T14:17:53Z",
+                "url": "https://bugzilla.organization.net/show_bug.cgi?id=52664",
+
+                "thumbs": 2,
+                "participants": 9,
+                "votes": 15,
+                "watchers": 216,
+
+                "author": { }
+              }
+
+/comments:
+  is: [ paginated, versioned ]
+  get:
+    queryParameters:
+      issue_id:
+        description: Comments for this issue id
+        type: integer
+        example: 1
+      include_author:
+        description: Include Linked Account (if any) that created this comment
+        type: boolean
+        default: false
+      include_body_html:
+        description: Include the (often large) body_html property
+        type: boolean
+        default: true
+  /{id}:
+    is: [ versioned ]
+    description: Discussion on the tracker, synced to Bountysource
+    get:
+      queryParameters:
+        include_issue:
+          description: The issue for this comment
+          type: boolean
+          example: false
+        include_author:
+          description: Include Linked Account (if any) that created this comment
+          type: boolean
+          default: false
+        include_body_html:
+          description: Include the (often large) body_html property
+          type: boolean
+          default: true
+      responses:
+        200:
+          body:
+            example: |
+              {
+                "id": 12,
+                "created_at: "2013-07-24T14:07:00Z",
+
+                "body_html": "Why is this bug so <strong>difficult?</strong",
+                "author": { },
+                "issue": { }
+              }
+
+/bounties:
+  is: [ paginated, versioned ]
+  get:
+    queryParameters:
+      issue_id:
+        type: integer
+      backer_id:
+        type: integer
+      tracker_id:
+        type: integer
+  /{id}:
+    is: [ versioned ]
+    description: Discussion on the tracker, synced to Bountysource
+    get:
+      responses:
+        200:
+          body:
+            example: |
+              {
+                "id": 10,
+                "issue_id": 1,
+                "backer_id": 2,
+                "tracker_id": 3,
+                "created_at": "2013-07-24T14:07:00Z",
+
+                "amount": 1000,
+                "status": "active"
+              }
+
+/bounty_claims:
+  is: [ paginated, versioned ]
+  get:
+    queryParameters:
+      issue_id:
+        type: integer
+  /{id}:
+    is: [ versioned ]
+    description: Discussion on the tracker, synced to Bountysource
+    get:
+      responses:
+        200:
+          body:
+            example: |
+              {
+                "id": 1,
+                "issue_id": 12,
+                "created_at": "2013-07-24T14:07:00Z",
+                "amount_paid": "150.00",
+                "contested_by_backers": false,
+                "in_dispute_period": false,
+                "rejected": false,
+              }
+
+/bounty_claim_events:
+  is: [ paginated, versioned ]
+  get:
+    queryParameters:
+      claim_id:
+        type: integer
+      person_id:
+        type: integer
+      type:
+        type: string
+  /{id}:
+    is: [ versioned ]
+    description: Claim events like responses and disputes
+    get:
+      responses:
+        200:
+          body:
+            example: |
+              {
+                "id": 10,
+                "claim_id": 1,
+                "person_id": 2,
+                "type": "Response",
+                "should_claim_be_accepted": true,
+                "description": "Great job fixing this bug"
+              }
+
+/users/{id}:
+  is: [ versioned ]
+  description: A user who has signed up with Bountysource
+  get:
+    responses:
+      200:
+        body:
+          example: |
+            {
+              "id": 42,
+              "slug": "42-dr-code",
+              "type": "Person",
+              "created_at": "2013-07-24T14:07:00Z",
+
+              "image_url_small": "http://foo.com/mugshot_small.png",
+              "image_url_medium": "http://foo.com/mugshot_medium.png",
+              "image_url_large": "http://foo.com/mugshot_large.png",
+
+              "display_name": "Dr. Code",
+              "bio": "Binary witchdoctor",
+              "location": "The Internet",
+              "company": "24x7 Consultancy LLC",
+              "url": "http://fix0101.biz",
+              "public_email": "code@fix0101.biz"
+            }
+
+/linked_accounts/{id}:
+  is: [ versioned ]
+  description: A user who is involved with issues but not yet necessarily on Bountysource
+  get:
+    responses:
+      200:
+        body:
+          example: |
+            {
+              "id": 42,
+              "slug": "42-mr-smith",
+              "user_id": null,
+              "type": "LinkedAccount::Unknown",
+              "created_at": "2013-07-24T14:07:00Z",
+
+              "display_name": "Mr. Smith",
+
+              "remote_id": 3487262,
+              "remote_username": "mrsmith"
+            }
+
+/following:
+  is: [ versioned, paginated ]
+  description: Which users are following which trackers
+  get:
+    queryParameters:
+      user_id:
+        type: integer
+      tracker_id:
+        type: integer
+    responses:
+      206:
+        body:
+          example: |
+            [
+              {
+                "user_id": 1,
+                "tracker_id": 2
+              }
+            ]
