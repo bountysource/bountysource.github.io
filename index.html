@@ -37,9 +37,16 @@
             <li>
               <h3 class="name">{{name}}</h3>
               <p class="description" ng-if="r.description">{{r.description}}</p>
+              <span class="includes-traits" ng-if="r.is">
+              [
+                <span ng-repeat="trait in r.is">
+                  <a href="#{{trait}}">{{trait}}</a>
+                </span>
+              ]
+              </span>
 
               <dl ng-if="r.get && r.get.queryParameters">
-                <div>Parameters:</div>
+                <div>Query Parameters:</div>
 
                 <div class="params" ng-repeat="(name, p) in r.get.queryParameters">
                   <dt>{{name}}<span class="type" ng-if="p.type">({{p.type}})</span></dt>
