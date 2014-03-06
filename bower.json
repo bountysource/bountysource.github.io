@@ -7,6 +7,7 @@
     "requirejs-domready": "latest",
     "angular": "latest",
     "js-yaml": "latest",
-    "bootstrap": "latest"
+    "bootstrap": "latest",
+    "underscore": "latest"
   }
 }
