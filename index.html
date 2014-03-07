@@ -22,6 +22,7 @@
 
           <div ng-repeat="(name, t) in traits">
             <h4 id="{{name}}">{{name}}</h4>
+            <query-params params="t.queryParameters" ng-if="t.queryParameters"></query-params>
           </div>
         </section>
 
@@ -46,22 +47,7 @@
               ]
               </span>
 
-              <dl ng-if="r.get && r.get.queryParameters">
-                <div>Query Parameters:</div>
-
-                <div class="params" ng-repeat="(name, p) in r.get.queryParameters">
-                  <dt>{{name}}<span class="type" ng-if="p.type">({{p.type}})</span></dt>
-                  <dd>
-                    <p ng-if="p.description">{{p.description}}</p>
-                    <ul>
-                      <li ng-if="p.defaults">Default: {{p.example}}</li>
-                      <li ng-if="p.example">Example: {{p.example}}</li>
-                      <li ng-if="p.minimum">Minimum: {{p.minimum}}</li>
-                      <li ng-if="p.enum">Choices: {{p.enum.join(', ')}}</li>
-                    </ul>
-                  </dd>
-                </div>
-              </dl>
+              <query-params params="r.get.queryParameters" ng-if="r.get && r.get.queryParameters"></query-params>
 
               <div class="responses" ng-if="r.get && r.get.responses">
                 <p>Example Responses</p>

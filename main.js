@@ -51,6 +51,15 @@ require(
           $scope.routes = recursiveRoutes($scope.api);
           $scope.traits = _.extend.apply({}, $scope.api.traits);
         });
+      }).
+      directive('queryParams', function () {
+        return {
+          restrict: 'E',
+          scope: {
+            params: '='
+          },
+          templateUrl: 'query_params.html'
+        };
       });
 
     ng.bootstrap(document, ['ramlview']);
