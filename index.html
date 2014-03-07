@@ -10,10 +10,10 @@
     <title>Bountysource API documentation</title>
   </head>
   <body ng-controller="RamlViewCtrl" ng-cloak class="container">
-    <h2 class="row">{{api.title}} API Docs {{api.version}}</h2>
+    <h2 class="row"><img src="logo.png"/ >{{api.title}} API Docs {{api.version}}</h2>
 
     <div class="row">
-      <div class="col-md-9" role="main">
+      <div class="col-md-8" role="main">
         <section class="row" id="overview">
           <h3>Overview</h3>
 
@@ -77,7 +77,7 @@
                 <p>Example Responses</p>
 
                 <div ng-repeat="(code, resp) in r.get.responses">
-                  Status {{code}}
+                  HTTP {{code}}
                   <div hljs source="'{{resp.body.example}}'" language="json"></div>
                 </div>
               </div>
@@ -86,7 +86,7 @@
         </section>
       </div>
 
-      <ul class="col-md-3 scrollable-menu" role="menu">
+      <ul class="col-md-3 col-md-offset-1 scrollable-menu" role="menu">
         <li>
           <a href="#overview">Overview</a></li>
           <ul ng-repeat="(name, t) in traits">
