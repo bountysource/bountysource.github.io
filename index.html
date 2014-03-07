@@ -28,9 +28,18 @@
                 params="t.queryParameters"
                 ng-if="t.queryParameters"></parameters>
               <parameters
-                title="'Headers'"
+                title="'Request Headers'"
                 params="t.headers"
                 ng-if="t.headers"></parameters>
+
+              <div class="responses" ng-if="t.responses">
+                <div ng-repeat="(code, resp) in t.responses">
+                  <parameters
+                    title="'Response Headers'"
+                    params="resp.headers"
+                    ng-if="resp.headers"></parameters>
+                </div>
+              </div>
             </li>
           </ul>
         </section>
@@ -65,9 +74,9 @@
                 <p>Example Responses</p>
 
                 <div ng-repeat="(code, resp) in r.get.responses">
-                Status {{code}}
-
-                <div hljs source="'{{resp.body.example}}'" language="json"></div>
+                  Status {{code}}
+                  <div hljs source="'{{resp.body.example}}'" language="json"></div>
+                </div>
               </div>
             </li>
           </ul>
