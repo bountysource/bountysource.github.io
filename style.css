@@ -42,7 +42,7 @@ h2 img {
 section {
   border-top: 1px solid #ccc;
   margin-top: 2em;
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
   padding-top: 1em;
 }
 
@@ -54,7 +54,7 @@ ul[role=menu], ul[role=menu] ul {
   list-style-type: none;
 }
 
-li.route {
+div[hljs] {
   padding-bottom: 1em;
 }
 
