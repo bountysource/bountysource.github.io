@@ -20,10 +20,19 @@
           <p>This API allows you to interact with bounties for issues on open source
           projects as well as open source fundraisers.</p>
 
-          <div ng-repeat="(name, t) in traits">
-            <h4 id="{{name}}">{{name}}</h4>
-            <query-params params="t.queryParameters" ng-if="t.queryParameters"></query-params>
-          </div>
+          <ul ng-repeat="(name, t) in traits">
+            <li>
+              <h3 id="{{name}}">{{name}}</h3>
+              <parameters
+                title="'Query Parameters'"
+                params="t.queryParameters"
+                ng-if="t.queryParameters"></parameters>
+              <parameters
+                title="'Headers'"
+                params="t.headers"
+                ng-if="t.headers"></parameters>
+            </li>
+          </ul>
         </section>
 
         <section class="row" id="contributing">
@@ -47,7 +56,10 @@
               ]
               </span>
 
-              <query-params params="r.get.queryParameters" ng-if="r.get && r.get.queryParameters"></query-params>
+              <parameters
+                title="'Query Parameters'"
+                params="r.get.queryParameters"
+                ng-if="r.get && r.get.queryParameters"></parameters>
 
               <div class="responses" ng-if="r.get && r.get.responses">
                 <p>Example Responses</p>

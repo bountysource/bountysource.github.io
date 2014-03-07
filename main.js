@@ -52,13 +52,14 @@ require(
           $scope.traits = _.extend.apply({}, $scope.api.traits);
         });
       }).
-      directive('queryParams', function () {
+      directive('parameters', function () {
         return {
           restrict: 'E',
           scope: {
-            params: '='
+            params: '=',
+            title: '='
           },
-          templateUrl: 'query_params.html'
+          templateUrl: 'parameters.html'
         };
       });
 
