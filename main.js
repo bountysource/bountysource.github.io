@@ -2,6 +2,7 @@ requirejs.config({
   shim: {
     'angular': { exports: 'angular' },
     'angularEncodeUri': { deps: ['angular'] },
+    'angularHighlightJS': { deps: ['angular', 'highlightJS'] },
     'jsyaml': { exports: 'jsyaml' },
     'underscore': { exports: '_' }
   },
@@ -10,6 +11,8 @@ requirejs.config({
     domReady: 'components/requirejs-domready/domReady',
     angular: 'components/angular/angular.min',
     angularEncodeUri: 'components/angular-encode-uri/dist/angular-encode-uri.min',
+    angularHighlightJS: 'components/angular-highlightjs/angular-highlightjs.min',
+    highlightJS: 'components/highlightjs/highlight.pack',
     jsyml: 'components/js-yaml/js-yaml',
     underscore: 'components/underscore/underscore'
   }
@@ -21,10 +24,11 @@ require(
     'jsyml',
     'underscore',
     'angularEncodeUri',
+    'angularHighlightJS',
     'domReady!'
   ],
   function (ng, jsyml, _) {
-    ng.module('ramlview', ['rt.encodeuri']);
+    ng.module('ramlview', ['rt.encodeuri', 'hljs']);
 
     ng.module('ramlview').
       controller('RamlViewCtrl', function($scope, $http) {

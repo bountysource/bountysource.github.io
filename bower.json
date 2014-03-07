@@ -7,6 +7,8 @@
     "requirejs-domready": "latest",
     "angular": "latest",
     "angular-encode-uri": "latest",
+    "angular-highlightjs": "latest",
+    "highlightjs": "latest",
     "js-yaml": "latest",
     "bootstrap": "latest",
     "underscore": "latest"
