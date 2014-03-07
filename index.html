@@ -69,7 +69,7 @@
                 <div ng-repeat="(code, resp) in r.get.responses">
                 Status {{code}}
 
-                <div hljs source="'{{resp}}'" language="json"></div>
+                <div hljs source="'{{resp.body.example}}'" language="json"></div>
               </div>
             </li>
           </ul>
