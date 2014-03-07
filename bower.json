@@ -6,6 +6,7 @@
     "requirejs-plugins": "latest",
     "requirejs-domready": "latest",
     "angular": "latest",
+    "angular-bootstrap": "latest",
     "angular-encode-uri": "latest",
     "angular-highlightjs": "latest",
     "highlightjs": "latest",

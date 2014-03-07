@@ -15,7 +15,7 @@ dd {
   margin-left: 0.5em;
 }
 
-h4, dl {
+h4 {
   padding-top: 1em;
   padding-bottom: 1em;
 }
@@ -60,4 +60,17 @@ div[hljs] {
 
 ul[role=menu] > li {
   margin: 0.25em 0;
+}
+
+.tab-content {
+  padding: 0.5em;
+  padding-bottom: 0;
+  border: 1px solid #ddd;
+  border-top: none;
+  margin-bottom: 2em;
+}
+
+.includes-traits {
+  padding-bottom: 0.5em;
+  display: block;
 }

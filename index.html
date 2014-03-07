@@ -68,19 +68,23 @@
               ]
               </span>
 
-              <parameters
-                title="'Query Parameters'"
-                params="r.get.queryParameters"
-                ng-if="r.get && r.get.queryParameters"></parameters>
+              <tabset>
+                <tab ng-repeat="m in httpMethods" ng-if="r[m]" heading="{{m}}" active="$first">
+                  <parameters
+                    title="'Query Parameters'"
+                    params="r[m].queryParameters"
+                    ng-if="r[m].queryParameters"></parameters>
 
-              <div class="responses" ng-if="r.get && r.get.responses">
-                <p>Example Responses</p>
+                  <div class="responses" ng-if="r[m].responses">
+                    <p>Example Responses</p>
+                    <div ng-repeat="(code, resp) in r[m].responses">
+                      HTTP {{code}}
+                      <div hljs source="'{{resp.body.example}}'" language="json"></div>
+                    </div>
+                  </div>
+                </tab>
+              </tabset>
 
-                <div ng-repeat="(code, resp) in r.get.responses">
-                  HTTP {{code}}
-                  <div hljs source="'{{resp.body.example}}'" language="json"></div>
-                </div>
-              </div>
             </li>
           </ul>
         </section>
