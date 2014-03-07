@@ -57,7 +57,7 @@
         <section class="row" id="routes">
           <h3>Routes</h3>
           <ul ng-repeat="(name, r) in routes">
-            <li>
+            <li class="route">
               <h3 class="name" id="{{name|encodeUri}}">{{name}}</h3>
               <p class="description" ng-if="r.description">{{r.description}}</p>
               <span class="includes-traits" ng-if="r.is">

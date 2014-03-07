@@ -54,6 +54,10 @@ ul[role=menu], ul[role=menu] ul {
   list-style-type: none;
 }
 
+li.route {
+  padding-bottom: 1em;
+}
+
 ul[role=menu] > li {
   margin: 0.25em 0;
 }
