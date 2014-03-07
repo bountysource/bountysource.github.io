@@ -30,16 +30,25 @@ require(
   function (ng, jsyml, _) {
     ng.module('ramlview', ['rt.encodeuri', 'hljs']);
 
+    function recursiveRoutes(node, prefix) {
+      var result = {};
+      prefix = prefix || "";
+      _.each(_.keys(node), function (k) {
+        if(typeof(k) === 'string' && k[0] === '/') {
+          result[prefix + k] = node[k];
+        }
+        if(typeof(node[k]) === 'object') {
+          result = _.extend(result, recursiveRoutes(node[k], prefix+k));
+        }
+      });
+      return result;
+    }
+
     ng.module('ramlview').
       controller('RamlViewCtrl', function($scope, $http) {
         $http.get('bountysource.raml').then(function (response) {
           $scope.api = jsyml.load(response.data);
-          $scope.routes = _.pick(
-            $scope.api,
-            _.filter(
-              _.keys($scope.api),
-              function (k) { return k[0] === '/'; }
-            ));
+          $scope.routes = recursiveRoutes($scope.api);
           $scope.traits = _.extend.apply({}, $scope.api.traits);
         });
       });
