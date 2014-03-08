@@ -2,6 +2,7 @@
 
 ### [View the Docs!](http://bountysource.github.io)
 
+<img src="logo.png" alt="Logo" align="right" />
 This client-side application reads the [RAML](http://raml.org)
 description of Bountysource's API and creates a more readable
 overview.
@@ -20,4 +21,4 @@ You can use a server other than Python if you prefer. It
 merely serves the contents of the directory as a static site.
 
 There are several ways you can help. To learn more see the
-[project issues](issues) page.
+project issues page.
