@@ -48,7 +48,7 @@ require(
 
     ng.module('ramlview').
       controller('RamlViewCtrl', function($scope, $http) {
-        $http.get('bountysource.raml').then(function (response) {
+        $http.get('bountysource.raml?cache=' + (new Date()).getTime()).then(function (response) {
           $scope.api = jsyml.load(response.data);
           $scope.routes = recursiveRoutes($scope.api);
           $scope.traits = _.extend.apply({}, $scope.api.traits);
