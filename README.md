@@ -26,9 +26,5 @@ project issues page.
 ### Contributing to the API
 
 Would you like to see changes in the API? Send a pull request with
-updates to the RAML definition and Bountysource engineers will
-discuss it with you and implement your suggestions.
-
-**TODO:** provide the RAML in a public repo to receive these
-pull requests. Could be this repo, although I see this as more
-of a place for the doc generator itself.
+updates to the API specification `bountysource.raml` and Bountysource
+engineers will discuss it with you and implement your suggestions.
