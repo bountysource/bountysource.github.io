@@ -16,7 +16,7 @@ traits:
           minimum: 1
           maximum: 100
           default: 30
-        per_page:
+        page:
           displayName: Page
           description: (1-based) page number
           type: integer
@@ -52,7 +52,7 @@ traits:
   is: [ paginated, versioned ]
   description: List of issue trackers
   get:
-    queryParams:
+    queryParameters:
       type:
         displayName: Type
         description: Filter by issue tracker type
@@ -92,7 +92,6 @@ traits:
           'closed_issues'
         ]
         example: +bounties
-
 
   /{id}:
     is: [ versioned ]
