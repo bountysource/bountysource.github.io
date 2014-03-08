@@ -99,8 +99,8 @@
       <ul class="col-md-3 col-md-offset-1 scrollable-menu" role="menu">
         <li>
           <a href="#overview">Overview</a></li>
-          <ul ng-repeat="(name, t) in traits">
-            <li>{{name}}</li>
+          <ul>
+            <li ng-repeat="(name, t) in traits">{{name}}</li>
           </ul>
         </li>
 
@@ -108,8 +108,8 @@
 
         <li>
           <a href="#routes">Routes</a>
-          <ul ng-repeat="(name, r) in routes">
-            <li><a class="name" href="#{{name|encodeUri}}">{{name}}</a></li>
+          <ul>
+            <li ng-repeat="(name, r) in routes"><a class="name" href="#{{name|encodeUri}}">{{name}}</a></li>
           </ul>
         </li>
       </ul>
