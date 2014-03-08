@@ -92,23 +92,25 @@
         </section>
       </div>
 
-      <ul class="col-md-3 col-md-offset-1 scrollable-menu" role="menu">
-        <li>
-          <a href="#overview">Overview</a></li>
-          <ul ng-repeat="(name, t) in traits">
-            <li>{{name}}</li>
-          </ul>
-        </li>
+      <div class="col-md-3 col-md-offset-1 scrollable-menu" role="menu">
+        <ul class="affix">
+          <li>
+            <a href="#overview">Overview</a></li>
+            <ul ng-repeat="(name, t) in traits">
+              <li>{{name}}</li>
+            </ul>
+          </li>
 
-        <li><a href="#contributing">Contributing</a></li>
+          <li><a href="#contributing">Contributing</a></li>
 
-        <li>
-          <a href="#routes">Routes</a>
-          <ul ng-repeat="(name, r) in routes">
-            <li spy="{{name||encodeUri}}">{{name}}</li>
-          </ul>
-        </li>
-      </ul>
+          <li>
+            <a href="#routes">Routes</a>
+            <ul ng-repeat="(name, r) in routes">
+              <li><a class="name" href="#{{name|encodeUri}}">{{name}}</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <script data-main="main" src="components/requirejs/require.js"></script>

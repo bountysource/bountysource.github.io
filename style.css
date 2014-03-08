@@ -50,7 +50,7 @@ section:first-child {
   margin-top: 0;
 }
 
-ul[role=menu], ul[role=menu] ul {
+div[role=menu], ul[role=menu] ul {
   list-style-type: none;
 }
 
@@ -58,7 +58,7 @@ div[hljs] {
   padding-bottom: 1em;
 }
 
-ul[role=menu] > li {
+div[role=menu] > ul > li {
   margin: 0.25em 0;
 }
 
@@ -74,3 +74,23 @@ ul[role=menu] > li {
   padding-bottom: 0.5em;
   display: block;
 }
+
+
+/***************************************
+ * Fixed sidebar
+ ***************************************/
+
+@media (min-width: 979px) {
+  .affix {
+      position:static;
+      width:100%;
+  }
+
+}
+
+@media (min-width: 767px) {
+  .affix {
+      position:fixed;
+  }
+}
+
