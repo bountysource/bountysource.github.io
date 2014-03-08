@@ -4,6 +4,7 @@ requirejs.config({
     'angularBootstrap': { deps: ['angular'] },
     'angularEncodeUri': { deps: ['angular'] },
     'angularHighlightJS': { deps: ['angular', 'highlightJS'] },
+    'jquery': { exports: 'jQuery' },
     'jsyaml': { exports: 'jsyaml' },
     'underscore': { exports: '_' }
   },
@@ -14,6 +15,7 @@ requirejs.config({
     angularHighlightJS: 'components/angular-highlightjs/angular-highlightjs.min',
     domReady: 'components/requirejs-domready/domReady',
     highlightJS: 'components/highlightjs/highlight.pack',
+    jquery: 'components/jquery/dist/jquery.min', // for scrollspy hack
     jsyml: 'components/js-yaml/js-yaml',
     underscore: 'components/underscore/underscore'
   }
@@ -27,10 +29,15 @@ require(
     'angularEncodeUri',
     'angularBootstrap',
     'angularHighlightJS',
+    'jquery',
+    'angularScrollSpy',
     'domReady!'
   ],
   function (ng, jsyml, _) {
-    ng.module('ramlview', ['rt.encodeuri', 'hljs', 'ui.bootstrap']);
+    ng.module(
+      'ramlview',
+      ['rt.encodeuri', 'hljs',
+       'ui.bootstrap', 'ecm.angularScrollSpy']);
 
     function recursiveRoutes(node, prefix) {
       var result = {};

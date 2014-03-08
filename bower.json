@@ -10,6 +10,7 @@
     "angular-encode-uri": "latest",
     "angular-highlightjs": "latest",
     "highlightjs": "latest",
+    "jquery": "latest",
     "js-yaml": "latest",
     "bootstrap": "latest",
     "underscore": "latest"
