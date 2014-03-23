@@ -1,3 +1,5 @@
+'use strict';
+
 requirejs.config({
   shim: {
     'angular': { exports: 'angular' },
@@ -24,48 +26,36 @@ require(
     'angular',
     'jsyml',
     'underscore',
-    'angularEncodeUri',
     'angularBootstrap',
     'angularHighlightJS',
     'domReady!'
   ],
   function (ng, jsyml, _) {
-    ng.module('ramlview', ['rt.encodeuri', 'hljs', 'ui.bootstrap']);
-
-    function recursiveRoutes(node, prefix) {
-      var result = {};
-      prefix = prefix || "";
-      _.each(_.keys(node), function (k) {
-        if(typeof(k) === 'string' && k[0] === '/') {
-          result[prefix + k] = node[k];
-        }
-        if(typeof(node[k]) === 'object') {
-          result = _.extend(result, recursiveRoutes(node[k], prefix+k));
-        }
-      });
-      return result;
-    }
-
-    ng.module('ramlview').
-      controller('RamlViewCtrl', function($scope, $http) {
+    ng.module('app', ['hljs', 'ui.bootstrap']).
+      controller('RamlViewCtrl', function($scope, $http, $anchorScroll, $location) {
         $http.get('bountysource.raml?cache=' + (new Date()).getTime()).then(function (response) {
           $scope.api = jsyml.load(response.data);
-          $scope.routes = recursiveRoutes($scope.api);
           $scope.traits = _.extend.apply({}, $scope.api.traits);
           $scope.httpMethods = ['get', 'post', 'put', 'delete', 'head', 'info'];
         });
-      }).
-      directive('parameters', function () {
+
+        $scope.scrollTo = function(hash) {
+          $location.hash(hash);
+          $anchorScroll(hash);
+        };
+      })
+
+      .directive('parameters', function () {
         return {
-          restrict: 'E',
+          restrict: 'EAC',
           scope: {
             params: '=',
             title: '='
           },
-          templateUrl: 'parameters.html'
+          templateUrl: 'templates/parameters.html'
         };
       });
 
-    ng.bootstrap(document, ['ramlview']);
+    ng.bootstrap(document, ['app']);
   }
 );

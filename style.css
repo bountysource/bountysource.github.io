@@ -1,76 +1,15 @@
-*[ng-cloak] {
-  display: none;
+body {
+  margin-top: 50px;
 }
 
-dd {
-  padding-left: 1em;
-}
+.code { font-family: Courier New; }
 
-.params {
-  padding-top: 0.5em;
+*[hljs] pre {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
 }
-
-.type {
-  display: inline-block;
-  margin-left: 0.5em;
-}
-
-h4 {
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
-p.description {
-  background-color: #eee;
-  font-style: italic;
-  padding: 0.5em;
-}
-
-h4.name {
-  text-decoration: underline;
-}
-
-h2 {
-  line-height: 64px;
-  margin-bottom: 2em;
-}
-
-h2 img {
-  margin-right: 2em;
-}
-
-section {
-  border-top: 1px solid #ccc;
-  margin-top: 2em;
-  margin-bottom: 1.5em;
-  padding-top: 1em;
-}
-
-section:first-child {
-  margin-top: 0;
-}
-
-ul[role=menu], ul[role=menu] ul {
-  list-style-type: none;
-}
-
-div[hljs] {
-  padding-bottom: 1em;
-}
-
-ul[role=menu] > li {
-  margin: 0.25em 0;
-}
-
-.tab-content {
-  padding: 0.5em;
-  padding-bottom: 0;
-  border: 1px solid #ddd;
-  border-top: none;
-  margin-bottom: 2em;
-}
-
-.includes-traits {
-  padding-bottom: 0.5em;
-  display: block;
+.panel *[hljs] pre {
+  border-radius: 0 5px 5px 0;
 }

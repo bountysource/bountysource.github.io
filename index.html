@@ -9,111 +9,165 @@
 
     <title>Bountysource API documentation</title>
   </head>
-  <body ng-controller="RamlViewCtrl" ng-cloak class="container">
-    <a href="https://github.com/bountysource/bountysource.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 
-    <h2 class="row"><img src="logo.png"/ >{{api.title}} API Docs {{api.version}}</h2>
+  <body ng-controller="RamlViewCtrl" class="container">
 
-    <div class="row">
-      <div class="col-md-8" role="main">
-        <section class="row" id="overview">
-          <h3>Overview</h3>
+    <!-- Navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Bountysource API</a>
+        </div>
 
-          <p><a href="{{api.baseUri">{{api.baseUri}}</a></p>
-
-          <p>This API allows you to interact with bounties for
-          issues on open source projects as well as open source
-          fundraisers. Routes can have the following traits. Here
-          is more information about what information the traits
-          provide and how to use them.</p>
-
-          <ul ng-repeat="(name, t) in traits">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
             <li>
-              <h3 id="{{name}}">{{name}}</h3>
-              <parameters
-                title="'Query Parameters'"
-                params="t.queryParameters"
-                ng-if="t.queryParameters"></parameters>
-              <parameters
-                title="'Request Headers'"
-                params="t.headers"
-                ng-if="t.headers"></parameters>
-
-              <div class="responses" ng-if="t.responses">
-                <div ng-repeat="(code, resp) in t.responses">
-                  <parameters
-                    title="'Response Headers'"
-                    params="resp.headers"
-                    ng-if="resp.headers"></parameters>
-                </div>
-              </div>
+              <a class="dropdown-toggle" href="#">Methods <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="(path, data) in api.routes" ng-if="data.displayName">
+                  <a ng-click="scrollTo(data.displayName)">{{data.displayName}}</a>
+                </li>
+              </ul>
             </li>
+            <li><a ng-click="scrollTo('overview')" style="cursor: pointer;">Overview</a></li>
+            <li><a ng-click="scrollTo('contributing')" style="cursor: pointer;">Contributing</a></li>
           </ul>
-        </section>
-
-        <section class="row" id="contributing">
-          <h3>Contributing</h3>
-          <p>This documentation is generated from a <a
-          href="http://raml.org">RAML</a> definition.  If you would
-          like to propose an API change, update
-          <a href="https://github.com/bountysource/bountysource.github.io/blob/master/bountysource.raml"
-          >the spec</a> and submit a pull request.</p>
-        </section>
-
-        <section class="row" id="routes">
-          <h3>Routes</h3>
-          <ul ng-repeat="(name, r) in routes">
-            <li class="route">
-              <h3 class="name" id="{{name|encodeUri}}">{{name}}</h3>
-              <p class="description" ng-if="r.description">{{r.description}}</p>
-              <span class="includes-traits" ng-if="r.is">
-              [
-                <span ng-repeat="trait in r.is">
-                  <a href="#{{trait}}">{{trait}}</a>
-                </span>
-              ]
-              </span>
-
-              <tabset>
-                <tab ng-repeat="m in httpMethods" ng-if="r[m]" heading="{{m}}" active="$first">
-                  <parameters
-                    title="'Query Parameters'"
-                    params="r[m].queryParameters"
-                    ng-if="r[m].queryParameters"></parameters>
-
-                  <div class="responses" ng-if="r[m].responses">
-                    <p>Example Responses</p>
-                    <div ng-repeat="(code, resp) in r[m].responses">
-                      HTTP {{code}}
-                      <div hljs source="'{{resp.body.example}}'" language="json"></div>
-                    </div>
-                  </div>
-                </tab>
-              </tabset>
-
-            </li>
-          </ul>
-        </section>
+        </div>
       </div>
-
-      <ul class="col-md-3 col-md-offset-1 scrollable-menu" role="menu">
-        <li>
-          <a href="#overview">Overview</a></li>
-          <ul>
-            <li ng-repeat="(name, t) in traits">{{name}}</li>
-          </ul>
-        </li>
-
-        <li><a href="#contributing">Contributing</a></li>
-
-        <li>
-          <a href="#routes">Routes</a>
-          <ul>
-            <li ng-repeat="(name, r) in routes"><a class="name" href="#{{name|encodeUri}}">{{name}}</a></li>
-          </ul>
-        </li>
-      </ul>
     </div>
+
+    <!-- Fork on GitHub button -->
+    <a href="https://github.com/bountysource/bountysource.github.io" class="hidden-xs">
+      <img style="position: absolute; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png">
+    </a>
+
+    <div class="page-header">
+      <h1>
+        <img class="img-responsive img-thumbnail hidden-xs" src="logo.png" />
+        Bountysource API Docs
+        <small ng-if="api.version">{{api.version}}</small>
+      </h1>
+    </div>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <hr />
+      <p><a href="{{api.baseUri">{{api.baseUri}}</a></p>
+
+      <p>This API allows you to interact with bounties for
+      issues on open source projects as well as open source
+      fundraisers. Routes can have the following traits. Here
+      is more information about what information the traits
+      provide and how to use them.</p>
+    </section>
+
+    <br />
+
+    <section id="contributing">
+      <h2>Contributing</h2>
+      <hr />
+      <p>This documentation is generated from a <a
+      href="http://raml.org">RAML</a> definition.  If you would
+      like to propose an API change, update
+      <a href="https://github.com/bountysource/bountysource.github.io/blob/master/bountysource.raml"
+      >the spec</a> and submit a pull request.</p>
+    </section>
+
+    <br />
+
+    <section id="traits">
+      <!--<pre>{{api.traits | json}}</pre>-->
+
+      <!--<ul ng-repeat="(name, t) in traits">-->
+        <!--<li>-->
+          <!--<h3 id="{{name}}">{{name}}</h3>-->
+          <!--<parameters-->
+            <!--title="'Query Parameters'"-->
+            <!--params="t.queryParameters"-->
+            <!--ng-if="t.queryParameters"></parameters>-->
+          <!--<parameters-->
+            <!--title="'Request Headers'"-->
+            <!--params="t.headers"-->
+            <!--ng-if="t.headers"></parameters>-->
+
+          <!--<div class="responses" ng-if="t.responses">-->
+            <!--<div ng-repeat="(code, resp) in t.responses">-->
+              <!--<parameters-->
+                <!--title="'Response Headers'"-->
+                <!--params="resp.headers"-->
+                <!--ng-if="resp.headers"></parameters>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</li>-->
+      <!--</ul>-->
+    </section>
+
+    <section id="routes">
+      <div ng-repeat="(path, data) in api.routes" id="{{data.displayName}}">
+        <h2>{{data.displayName}}</h2>
+
+        <p class="lead">{{data.description}}</p>
+
+        <!-- HTTP Methods, request params -->
+        <div ng-repeat="(requestMethod, requestData) in data" ng-if="httpMethods.indexOf(requestMethod.toLowerCase()) >= 0">
+          <pre>{{requestMethod.toUpperCase()}} {{path}}</pre>
+
+          <ul class="list-inline">
+            <li ng-repeat="trait in data.is">
+              <span class="label label-info">{{trait}}</span>
+            </li>
+          </ul>
+
+          <br />
+
+          <div ng-if="requestData.queryParameters">
+            <h5>Parameters</h5>
+            <table class="table table-condensed table-bordered">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr ng-repeat="(paramName, paramData) in requestData.queryParameters">
+                <td>{{paramName}}</td>
+                <td>{{paramData.type}}</td>
+                <td>{{paramData.description}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Possible values for params, if they have an enum set -->
+          <div ng-repeat="(paramName, paramData) in requestData.queryParameters" ng-if="paramData.enum">
+            <strong>Values for {{paramName}}:</strong>
+            <ul class="list-unstyled">
+              <li ng-repeat="paramValue in paramData.enum">
+                <code>{{paramValue}}</code>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Responses -->
+          <div ng-show="requestData.responses">
+            <div ng-repeat="(responseCode, responseData) in requestData.responses">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <span class="code">Status: {{responseCode}}</span>
+                </div>
+                <div hljs source="'{{responseData.body.example}}'" language="json"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <br ng-if="!$last" />
+      </div>
+    </section>
 
     <script data-main="main" src="components/requirejs/require.js"></script>
   </body>

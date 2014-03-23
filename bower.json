@@ -1,17 +1,16 @@
 {
-  "name": "ramldoc",
-  "version": "0.0.1",
+  "name": "bountysource-api-docs",
+  "version": "0.1.0",
   "dependencies": {
-    "requirejs": "latest",
-    "requirejs-plugins": "latest",
-    "requirejs-domready": "latest",
-    "angular": "latest",
-    "angular-bootstrap": "latest",
-    "angular-encode-uri": "latest",
-    "angular-highlightjs": "latest",
-    "highlightjs": "latest",
-    "js-yaml": "latest",
-    "bootstrap": "latest",
-    "underscore": "latest"
+    "requirejs": "~2.1.11",
+    "requirejs-plugins": "~1.0.2",
+    "requirejs-domready": "~2.0.1",
+    "angular": "~1.2.15",
+    "angular-bootstrap": "~0.10.0",
+    "angular-highlightjs": "~0.2.5",
+    "highlightjs": "~8.0.0",
+    "js-yaml": "~3.0.2",
+    "bootstrap": "~3.1.1",
+    "underscore": "~1.6.0"
   }
 }
